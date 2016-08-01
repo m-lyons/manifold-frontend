@@ -29,6 +29,8 @@ tupleValue:
   '(' tupleValueEntry (',' tupleValueEntry)* ')' |
   '(' ')';
 
+listTypeValue: type '[' ']';
+
 listValueEntry: (IDENTIFIER '=')? expression;
 listValue:
   '[' listValueEntry (',' listValueEntry)* ']' |
