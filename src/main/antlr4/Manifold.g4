@@ -29,6 +29,11 @@ tupleValue:
   '(' tupleValueEntry (',' tupleValueEntry)* ')' |
   '(' ')';
 
+listValueEntry: (IDENTIFIER '=')? expression;
+listValue:
+  '[' listValueEntry (',' listValueEntry)* ']' |
+  '[' ']';
+
 functionTypeValue: tupleTypeValue '->' tupleTypeValue;
 functionValue: functionTypeValue '{' (expression EXPRESSION_TERMINATOR)* '}';
 
