@@ -29,8 +29,6 @@ tupleValue:
   '(' tupleValueEntry (',' tupleValueEntry)* ')' |
   '(' ')';
 
-listTypeValue: type '[' ']';
-
 listValueEntry: (IDENTIFIER '=')? expression;
 listValue:
   '[' listValueEntry (',' listValueEntry)* ']' |
@@ -57,6 +55,7 @@ namespacedIdentifier: (IDENTIFIER '::')* IDENTIFIER;
 type:
     namespacedIdentifier # Typename
   | tupleTypeValue # TupleType
+  | type '[' ']' # ListType
   ;
 
 typevalue:
