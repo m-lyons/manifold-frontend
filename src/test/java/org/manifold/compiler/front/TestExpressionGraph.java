@@ -1,9 +1,7 @@
 package org.manifold.compiler.front;
 
-import java.io.File;
-import java.util.HashMap;
-import java.util.Map;
-
+import com.google.common.collect.ImmutableList;
+import com.google.common.collect.ImmutableMap;
 import org.apache.log4j.ConsoleAppender;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.PatternLayout;
@@ -15,7 +13,9 @@ import org.manifold.compiler.BooleanValue;
 import org.manifold.compiler.StringTypeValue;
 import org.manifold.compiler.StringValue;
 
-import com.google.common.collect.ImmutableList;
+import java.io.File;
+import java.util.HashMap;
+import java.util.Map;
 
 public class TestExpressionGraph {
   ExpressionGraph expressionGraph;
@@ -93,12 +93,19 @@ public class TestExpressionGraph {
 
     // input/output
     VariableIdentifier subInput = new VariableIdentifier(ImmutableList.of("subInput"));
-    VariableIdentifier subOutput = new VariableIdentifier(ImmutableList.of("subOutput"));
+
+    VariableIdentifier dummyReturn = new VariableIdentifier(ImmutableList.of("returnValue"));
+    subGraph.addVertex(dummyReturn);
+    ExpressionVertex dummyReturnVertex = subGraph.getVariableVertex(dummyReturn);
+    ExpressionEdge returnEdge = new ExpressionEdge(dummyReturnVertex, null);
+    subGraph.addEdge(returnEdge);
+    ExpressionVertex subOutputVertex = new TupleValueVertex(subGraph,
+        new MappedArray<>(ImmutableMap.of("a", returnEdge)));
+
     subGraph.addVertex(subInput);
-    subGraph.addVertex(subOutput);
+    subGraph.addVertex(subOutputVertex);
 
     ExpressionVertex subInputVertex = subGraph.getVariableVertex(subInput);
-    ExpressionVertex subOutputVertex = subGraph.getVariableVertex(subOutput);
 
     // intermediate nodes
     ExpressionVertex intermediate1 = new ConstantValueVertex(subGraph, BooleanValue.getInstance(true));
