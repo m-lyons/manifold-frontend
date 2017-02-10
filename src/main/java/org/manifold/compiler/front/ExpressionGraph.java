@@ -220,8 +220,8 @@ public class ExpressionGraph {
    * @param subGraphOutput Exit vertex in subGraph
    */
   public void addFunctionExpressionGraph(ExpressionGraph subGraph,
-                                         ExpressionEdge mainGraphInput, ExpressionVertex subGraphInput,
-                                         ExpressionEdge mainGraphOutput, ExpressionVertex subGraphOutput,
+                                         ExpressionEdge mainGraphInput, TupleValueVertex subGraphInput,
+                                         ExpressionEdge mainGraphOutput, TupleValueVertex subGraphOutput,
                                          Map<VariableReferenceVertex, VariableReferenceVertex> variableRenamingMap) {
 
     // Sanity checks
@@ -280,7 +280,7 @@ public class ExpressionGraph {
 
     // Connect the function output vertex to the main graph
     ExpressionVertex outputVertex = exprVertexMap.get(subGraphOutput);
-    if (((TupleValueVertex) subGraphOutput).getValueEdges().size() == 1) {
+    if (subGraphOutput.getValueEdges().size() == 1) {
       // Remove the output tuple from the expression graph
       this.allVertices.remove(outputVertex);
       this.nonVariableVertices.remove(outputVertex);

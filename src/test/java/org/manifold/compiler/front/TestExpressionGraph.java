@@ -93,19 +93,24 @@ public class TestExpressionGraph {
 
     // input/output
     VariableIdentifier subInput = new VariableIdentifier(ImmutableList.of("subInput"));
+    subGraph.addVertex(subInput);
+    ExpressionVertex subInputEdgeVertex = subGraph.getVariableVertex(subInput);
+    ExpressionEdge subGraphInputEdge = new ExpressionEdge(null, subInputEdgeVertex);
+    subGraph.addEdge(subGraphInputEdge);
 
     VariableIdentifier dummyReturn = new VariableIdentifier(ImmutableList.of("returnValue"));
     subGraph.addVertex(dummyReturn);
     ExpressionVertex dummyReturnVertex = subGraph.getVariableVertex(dummyReturn);
     ExpressionEdge returnEdge = new ExpressionEdge(dummyReturnVertex, null);
     subGraph.addEdge(returnEdge);
-    ExpressionVertex subOutputVertex = new TupleValueVertex(subGraph,
-        new MappedArray<>(ImmutableMap.of("a", returnEdge)));
 
-    subGraph.addVertex(subInput);
+    TupleValueVertex subInputVertex = new TupleValueVertex(subGraph,
+            new MappedArray<>(ImmutableMap.of("a", subGraphInputEdge)));
+    TupleValueVertex subOutputVertex = new TupleValueVertex(subGraph,
+            new MappedArray<>(ImmutableMap.of("a", returnEdge)));
+
+    subGraph.addVertex(subInputVertex);
     subGraph.addVertex(subOutputVertex);
-
-    ExpressionVertex subInputVertex = subGraph.getVariableVertex(subInput);
 
     // intermediate nodes
     ExpressionVertex intermediate1 = new ConstantValueVertex(subGraph, BooleanValue.getInstance(true));
