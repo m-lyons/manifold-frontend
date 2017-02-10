@@ -286,7 +286,7 @@ public class ExpressionGraph {
       this.nonVariableVertices.remove(outputVertex);
 
       // Find the single value in the tuple and assign connect it to the output
-      ExpressionEdge functionReturnEdge = ((TupleValueVertex) subGraphOutput).getValueEdges().get(0);
+      ExpressionEdge functionReturnEdge = subGraphOutput.getValueEdges().get(0);
       subGraph.removeEdge(functionReturnEdge);
 
       outputVertex = exprVertexMap.get(functionReturnEdge.getSource());
