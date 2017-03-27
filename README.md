@@ -3,6 +3,8 @@ write software. Currently, it focuses on hardware and microfluidics design.
 
 # Introduction
 
+[![Join the chat at https://gitter.im/m-lyons/manifold-frontend](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/m-lyons/manifold-frontend?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+
 In much the same way that computer programs are written in programming
 languages, digital circuits is "written" in a **hardware description language**.
 
